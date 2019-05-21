@@ -1,0 +1,22 @@
+{
+  "name": "xmendna",
+  "version": "1.0.0",
+  "description": "finds more than one sequence of four letters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harmando-cr/wordsearch.git"
+  },
+  "author": "Hosmar Colmenares",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Harmando-cr/wordsearch/issues"
+  },
+  "homepage": "https://github.com/Harmando-cr/wordsearch#readme",
+  "dependencies": {
+    "express": "^4.17.0"
+  }
+}

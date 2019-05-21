@@ -1,3 +1,27 @@
+const express = require('express');
+const app = express();
+
+app.use(express.json())
+
+app.post(/mutant/, (req, res) => {
+    console.log(req.body.dna);
+    isMutant(req.body.dna)
+        .then(result => {
+            console.log(false);
+            return res.status(403).send(false)
+            // return false
+        })
+        .catch(e => {
+            console.log(true);
+            return res.status(200).send(true)
+            // return true
+        });
+    ;
+})
+
+app.listen(3000)
+console.log('app running on port ', 3000);
+
 const isMutant = (dna) => {
     return new Promise ((resolve,reject) => {
         let re = /([ATCG])\1{3}/;
@@ -137,6 +161,8 @@ const isMutant = (dna) => {
 
 }
 
+
+//function to generate a random DNA sequence 
 const generateDNA = (length) => {
     let DNA = []
     const generateSequence = (length) => {
@@ -156,17 +182,19 @@ const generateDNA = (length) => {
     return DNA;
 }
 
-// let response = isMutant(["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]);
-// console.log(response);
-let DNA = generateDNA(1000);
-console.log(DNA);
-isMutant(DNA)
-.then(result => {
-    console.log(false);
-    return false
-})
-.catch(e => {
-    console.log(true);
-    return true
-});
+
+//["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"];
+
+// let DNA = generateDNA(1000);
+// console.log(DNA);
+
+// isMutant(DNA)
+// .then(result => {
+//     console.log(false);
+//     return false
+// })
+// .catch(e => {
+//     console.log(true);
+//     return true
+// });
 
