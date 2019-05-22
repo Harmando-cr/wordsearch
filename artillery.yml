@@ -8,4 +8,6 @@ scenarios:
     - post:
         url: "/mutant"
         json:
-          dna: ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]
+          dna: ["TTGCGA", "CAGTGC", "TTATAT", "AGAAGG", "CTCCTA", "TCACTG"]
+    - get:
+        url: "/stats"

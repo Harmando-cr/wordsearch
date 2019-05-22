@@ -36,15 +36,16 @@ POST → /mutant/
 in case you have more than one sequence, it should return an HTTP 200-OK (True), otherwise a
 403-Forbidden (False)
 
-The second is the GET service "/stats" that returns a Json with the statistics of the verifications of the matrices: {"count_mutant_dna":40, "count_human_dna":100: "ratio":0.4}.
+The second is the GET service "/stats" that returns a Json with the statistics of the verifications of the matrices: {"count_mutant_dna":40, "count_human_dna":100, "ratio":0.4}.
 
 "count_mutant_dna" for more than one sequence, "count_human_dna" for the other case.
 
 This services also has been deployed in a firebase serve, so you can do your request to:
-
+```
 https://us-central1-xmen-f6db2.cloudfunctions.net/api/mutant
-https://us-central1-xmen-f6db2.cloudfunctions.net/api/stats
 
+https://us-central1-xmen-f6db2.cloudfunctions.net/api/stats
+```
 
 ## Test
 
@@ -88,6 +89,12 @@ Summary report @ 14:43:52(-0400) 2019-05-22
 ```
 
 After a quantity, the firebase server limit the request.
+
+You can do this test tiping
+```bash
+artillery run artillery.yml
+```
+
 
 ### Something Else
 
