@@ -9,21 +9,16 @@ admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
 app.post("/mutant/", (req, res) => {
-    console.log(req.body.dna);
     isMutant(req.body.dna)
         .then(result => {
-            console.log(false);
             firebaseHelper.firestore
                 .createNewDocument(db, 'noMutants', req.body);
             return res.status(403).send(false)
-            // return false
         })
         .catch(e => {
-            console.log(true);
             firebaseHelper.firestore
                 .createNewDocument(db, 'mutants', req.body);
             return res.status(200).send(true)
-            // return true
         });
     ;
 });
@@ -43,9 +38,6 @@ app.get("/stats", (req, res) => {
                 })
             })
 });
-
-// app.listen(3000)
-// console.log('app running on port ', 3000);
 
 const api = functions.https.onRequest(app)
 
@@ -92,6 +84,7 @@ const isMutant = (dna) => {
 
         const isMutantO = (dna) => {
             return new Promise((resolve, reject) => {
+
                 //left to right, top to bottom, upper half
                 const lrtbuh = () => {
                     return new Promise((resolve, reject) => {
@@ -110,6 +103,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //left to right, top to bottom, lower half
                 const lrtplh = () => {
                     return new Promise((resolve, reject) => {
@@ -129,6 +123,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //right to left,bottom to top, upper half
                 const rlbtuh = () => {
                     return new Promise((resolve, reject) => {
@@ -148,6 +143,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //right to left,bottom to top, lower half
                 const rlbtlh = () => {
                     return new Promise((resolve, reject) => {
@@ -174,10 +170,7 @@ const isMutant = (dna) => {
                     .catch(e => {
                         reject(true);
                     })
-
-
             })
-
         }
 
         Promise.all([isMutantH(dna), isMutantV(dna), isMutantO(dna)])
@@ -188,8 +181,6 @@ const isMutant = (dna) => {
                 reject(true);
             });
     })
-
-
 }
 
 
@@ -212,27 +203,3 @@ const generateDNA = (length) => {
 
     return DNA;
 }
-
-
-//["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"];
-
-// let DNA = generateDNA(1000);
-// console.log(DNA);
-
-// isMutant(DNA)
-// .then(result => {
-//     console.log(false);
-//     return false
-// })
-// .catch(e => {
-//     console.log(true);
-//     return true
-// });
-
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });

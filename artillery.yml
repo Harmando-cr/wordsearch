@@ -1,0 +1,11 @@
+config:
+  target: 'https://us-central1-xmen-f6db2.cloudfunctions.net/api'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+scenarios:
+  - flow:
+    - post:
+        url: "/mutant"
+        json:
+          dna: ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]

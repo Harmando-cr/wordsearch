@@ -1,29 +1,60 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 const express = require('express');
+const firebaseHelper = require('firebase-functions-helper');
 const app = express();
 
 app.use(express.json())
+admin.initializeApp(functions.config().firebase);
+const db = admin.firestore();
 
-app.post(/mutant/, (req, res) => {
-    console.log(req.body.dna);
+app.post("/mutant/", (req, res) => {
+    // console.log(req.body.dna);
     isMutant(req.body.dna)
         .then(result => {
-            console.log(false);
+            // console.log(false);
+            firebaseHelper.firestore
+                .createNewDocument(db, 'noMutants', req.body);
             return res.status(403).send(false)
             // return false
         })
         .catch(e => {
-            console.log(true);
+            // console.log(true);
+            firebaseHelper.firestore
+                .createNewDocument(db, 'mutants', req.body);
             return res.status(200).send(true)
             // return true
         });
     ;
-})
+});
+
+app.get("/stats", (req, res) => {
+    let mutants;
+    let noMutants;
+    firebaseHelper.firestore
+        .backup(db, 'mutants')
+        .then(data => {
+            mutants = Object.keys(data.mutants).length;
+            firebaseHelper.firestore
+                .backup(db, 'noMutants')
+                .then(data => {
+                    noMutants = Object.keys(data.noMutants).length;
+                    return res.status(200).send({ "count_mutant_dna": mutants, "count_human_dna": noMutants, "ratio": mutants / noMutants })
+                })
+        })
+});
 
 app.listen(3000)
 console.log('app running on port ', 3000);
 
+const api = functions.https.onRequest(app)
+
+module.exports = {
+    api
+}
+
 const isMutant = (dna) => {
-    return new Promise ((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         let re = /([ATCG])\1{3}/;
         let matches = 0;
 
@@ -155,9 +186,9 @@ const isMutant = (dna) => {
             })
             .catch(e => {
                 reject(true);
-            });   
+            });
     })
-    
+
 
 }
 
@@ -172,7 +203,7 @@ const generateDNA = (length) => {
         for (var i = 0; i < length; i++) {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
-        
+
         return result;
     }
     for (let i = 0; i < length; i++) {
@@ -197,4 +228,3 @@ const generateDNA = (length) => {
 //     console.log(true);
 //     return true
 // });
-
