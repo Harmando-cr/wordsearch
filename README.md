@@ -47,6 +47,10 @@ https://us-central1-xmen-f6db2.cloudfunctions.net/api/mutant
 https://us-central1-xmen-f6db2.cloudfunctions.net/api/stats
 ```
 
+To can save and get data on firestore we need the config enviroment and credetials to firebase. So, you can request the '/mutant' POST service without persist the data. And you cannot request the '/stats' GET service.
+
+Please use the link of service given above.
+
 ## Test
 
 Some load tests were performed, however they were limited by the firebase quotas for the free plan.

@@ -13,15 +13,15 @@ app.post("/mutant/", (req, res) => {
     isMutant(req.body.dna)
         .then(result => {
             // console.log(false);
-            firebaseHelper.firestore
-                .createNewDocument(db, 'noMutants', req.body);
+            // firebaseHelper.firestore
+            //     .createNewDocument(db, 'noMutants', req.body);
             return res.status(403).send(false)
             // return false
         })
         .catch(e => {
             // console.log(true);
-            firebaseHelper.firestore
-                .createNewDocument(db, 'mutants', req.body);
+            // firebaseHelper.firestore
+            //     .createNewDocument(db, 'mutants', req.body);
             return res.status(200).send(true)
             // return true
         });
@@ -216,7 +216,7 @@ const generateDNA = (length) => {
 
 //["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"];
 
-// let DNA = generateDNA(1000);
+// let DNA = generateDNA(100);
 // console.log(DNA);
 
 // isMutant(DNA)
