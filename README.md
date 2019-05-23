@@ -1,11 +1,11 @@
 # wordsearch
 
-wordsearch is a javascript project that finds more than one sequence of four letters
+Wordsearch is a javascript project that finds more than one sequence of four letters
 equal, obliquely, horizontally or vertically in a matrix
 
 ## Installation
 
-use npm to install all the requirements on the root directory
+Use npm to install all the requirements on the root directory
 
 ```bash
 npm install 
@@ -18,11 +18,11 @@ For local enviroments use node.
 ```bash
 node index.js
 ```
-this will run on port 3000.
+This will run on port 3000.
 
 The project has two endopoints
 
-first we have the service "/mutant/" where it is possible to detect if a matrix 
+First we have the service "/mutant/" where it is possible to detect if a matrix 
 has more than one sequence of four letter, via HTTP POST with a Json which has the
 next format:
 
@@ -33,12 +33,13 @@ POST → /mutant/
 }
 ```
 
-in case you have more than one sequence, it should return an HTTP 200-OK (True), otherwise a
+In case you have more than one sequence, it should return an HTTP 200-OK (True), otherwise a
 403-Forbidden (False)
 
 The second is the GET service "/stats" that returns a Json with the statistics of the verifications of the matrices: {"count_mutant_dna":40, "count_human_dna":100, "ratio":0.4}.
 
 "count_mutant_dna" for more than one sequence, "count_human_dna" for the other case.
+
 
 This services also has been deployed in a firebase serve, so you can do your request to:
 ```
@@ -55,7 +56,7 @@ Please use the link of service given above.
 
 Some load tests were performed, however they were limited by the firebase quotas for the free plan.
 
-```
+```bash
 All virtual users finished
 Summary report @ 11:23:42(-0400) 2019-05-22
   Scenarios launched:  10
@@ -94,16 +95,17 @@ Summary report @ 14:43:52(-0400) 2019-05-22
 
 After a quantity, the firebase server limit the request.
 
-You can do this test tiping
+You can do this test typing
+
 ```bash
 artillery run artillery.yml
 ```
 
-#### unit test and code coverage
+#### Unit Test and Code Coverage
     To not change all the scheme of the index, the test was realized over the main function.
-
     the result was:
-```jest
+
+```bash
 > xmendna@1.0.0 test /home/hcolmenares/Xmen
 > jest --coverage
 
@@ -127,14 +129,15 @@ Time:        1.242s
 Ran all test suites.
 ```  
 you can run this test with:
+
 ```bash
 npm run test 
 ```  
 ### Something Else
 
-the directory "functions" was created by the deploy on firebase, there is a file named "index.js", this is the version that works in the firebase server.
+The directory "functions" was created by the deploy on firebase, there is a file named "index.js", this is the version that works in the firebase server.
 
-the index.js file in the root directory, is a version to local unit test and code coverage, the differences between this files, are the calls to DB, and some commented code, that no has sense in local.
+The index.js file in the root directory, is a version to local unit test and code coverage, the differences between this files, are the calls to DB, and some commented code, that no has sense in local.
 
 On the index file, you can find a function named 'generateDNA', this will create a random square matrix 
 with the length of you provide it in the parameter. Was made to test the pricipal function with large matrices
