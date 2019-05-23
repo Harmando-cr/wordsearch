@@ -99,8 +99,42 @@ You can do this test tiping
 artillery run artillery.yml
 ```
 
+#### unit test and code coverage
+    To not change all the scheme of the index, the test was realized over the main function.
 
+    the result was:
+```jest
+> xmendna@1.0.0 test /home/hcolmenares/Xmen
+> jest --coverage
+
+ PASS  ./index.test.js
+  ✓ finding more than one sequence (11ms)
+  ✓ finding less than one sequence (11ms)
+
+  console.log index.js:48
+    app running on port  3000
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |    97.03 |     88.1 |     87.5 |    96.55 |                   |
+ index.js |    97.03 |     88.1 |     87.5 |    96.55 |          13,18,25 |
+----------|----------|----------|----------|----------|-------------------|
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.242s
+Ran all test suites.
+```  
+you can run this test with:
+```bash
+npm run test 
+```  
 ### Something Else
+
+the directory "functions" was created by the deploy on firebase, there is a file named "index.js", this is the version that works in the firebase server.
+
+the index.js file in the root directory, is a version to local unit test and code coverage, the differences between this files, are the calls to DB, and some commented code, that no has sense in local.
 
 On the index file, you can find a function named 'generateDNA', this will create a random square matrix 
 with the length of you provide it in the parameter. Was made to test the pricipal function with large matrices

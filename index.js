@@ -1,17 +1,17 @@
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const firebaseHelper = require('firebase-functions-helper');
 const app = express();
 
 app.use(express.json())
-admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();
+// admin.initializeApp(functions.config().firebase);
+// const db = admin.firestore();
 
 app.post("/mutant/", (req, res) => {
     // console.log(req.body.dna);
     isMutant(req.body.dna)
-        .then(result => {
+    .then(result => {
             // console.log(false);
             // firebaseHelper.firestore
             //     .createNewDocument(db, 'noMutants', req.body);
@@ -28,30 +28,28 @@ app.post("/mutant/", (req, res) => {
     ;
 });
 
-app.get("/stats", (req, res) => {
-    let mutants;
-    let noMutants;
-    firebaseHelper.firestore
-        .backup(db, 'mutants')
-        .then(data => {
-            mutants = Object.keys(data.mutants).length;
-            firebaseHelper.firestore
-                .backup(db, 'noMutants')
-                .then(data => {
-                    noMutants = Object.keys(data.noMutants).length;
-                    return res.status(200).send({ "count_mutant_dna": mutants, "count_human_dna": noMutants, "ratio": mutants / noMutants })
-                })
-        })
-});
+// app.get("/stats", (req, res) => {
+//     let mutants;
+//     let noMutants;
+//     firebaseHelper.firestore
+//         .backup(db, 'mutants')
+//         .then(data => {
+//             mutants = Object.keys(data.mutants).length;
+//             firebaseHelper.firestore
+//                 .backup(db, 'noMutants')
+//                 .then(data => {
+//                     noMutants = Object.keys(data.noMutants).length;
+//                     return res.status(200).send({ "count_mutant_dna": mutants, "count_human_dna": noMutants, "ratio": mutants / noMutants })
+//                 })
+//         })
+// });
 
 app.listen(3000)
 console.log('app running on port ', 3000);
 
-const api = functions.https.onRequest(app)
+// const api = functions.https.onRequest(app)
 
-module.exports = {
-    api
-}
+
 
 const isMutant = (dna) => {
     return new Promise((resolve, reject) => {
@@ -92,6 +90,7 @@ const isMutant = (dna) => {
 
         const isMutantO = (dna) => {
             return new Promise((resolve, reject) => {
+
                 //left to right, top to bottom, upper half
                 const lrtbuh = () => {
                     return new Promise((resolve, reject) => {
@@ -110,6 +109,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //left to right, top to bottom, lower half
                 const lrtplh = () => {
                     return new Promise((resolve, reject) => {
@@ -129,6 +129,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //right to left,bottom to top, upper half
                 const rlbtuh = () => {
                     return new Promise((resolve, reject) => {
@@ -148,6 +149,7 @@ const isMutant = (dna) => {
                         resolve(false);
                     })
                 }
+
                 //right to left,bottom to top, lower half
                 const rlbtlh = () => {
                     return new Promise((resolve, reject) => {
@@ -174,8 +176,6 @@ const isMutant = (dna) => {
                     .catch(e => {
                         reject(true);
                     })
-
-
             })
 
         }
@@ -188,32 +188,31 @@ const isMutant = (dna) => {
                 reject(true);
             });
     })
-
-
 }
 
 
 //function to generate a random DNA sequence 
-const generateDNA = (length) => {
-    let DNA = []
-    const generateSequence = (length) => {
-        var result = '';
-        var characters = 'ATCG';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
+// const generateDNA = (length) => {
+//     let DNA = []
+//     const generateSequence = (length) => {
+//         var result = '';
+//         var characters = 'ACTG';
+//         var charactersLength = characters.length;
+//         for (var i = 0; i < length; i++) {
+//             result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//         }
+//         return result;
+//     }
+//     for (let i = 0; i < length; i++) {
+//         DNA.push(generateSequence(length));
+//     }
+//     return DNA;
+// }
 
-        return result;
-    }
-    for (let i = 0; i < length; i++) {
-        DNA.push(generateSequence(length));
-    }
 
-    return DNA;
+module.exports = {
+    isMutant
 }
-
-
 //["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"];
 
 // let DNA = generateDNA(100);
@@ -221,10 +220,11 @@ const generateDNA = (length) => {
 
 // isMutant(DNA)
 // .then(result => {
-//     console.log(false);
-//     return false
-// })
-// .catch(e => {
-//     console.log(true);
-//     return true
-// });
+    //     console.log(false);
+    //     return false
+    // })
+    // .catch(e => {
+        //     console.log(true);
+        //     return true
+        // });
+        

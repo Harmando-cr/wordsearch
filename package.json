@@ -4,7 +4,7 @@
   "description": "finds more than one sequence of four letters",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "firebase-functions-helper": "^0.7.0"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.1.6"
+    "firebase-functions-test": "^0.1.6",
+    "jest": "^24.8.0"
   }
 }
